@@ -18,7 +18,7 @@ import quickstart_drive
 
  
 
-def main(service,week_range1,week_range2,return_occurance_week1,return_occurance_week2,spreadsheetId):
+def write_to_sheets(service,week_range1,week_range2,return_occurance_week1,return_occurance_week2,spreadsheetId,last_spreadsheetId):
     print('We are in quickstart_sheets')
      
     ##write to sheet  
@@ -50,9 +50,4 @@ def main(service,week_range1,week_range2,return_occurance_week1,return_occurance
     body = result
     result = service.spreadsheets().values().update(spreadsheetId=spreadsheetId, range='Invoice!F12',valueInputOption=value_input_option, body=body).execute()
     
-    
-
-
-
-if __name__ == '__main__':
-    main()
+     

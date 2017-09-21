@@ -78,7 +78,7 @@ def main():
     last_spreadsheetId=quickstart_drive.get_last_spreadsheetId(drive_service)
     #write to new spreadsheet, give it sheet, time info, new spreasheetID and the last invoice's ID
                                   
-    quickstart_sheets.main(sheet_service,week_range1,week_range2,occurance_week1,occurance_week2,spreadsheetId,last_spreadsheetId)
+    quickstart_sheets.write_to_sheets(sheet_service,week_range1,week_range2,occurance_week1,occurance_week2,spreadsheetId,last_spreadsheetId)
  
 if __name__ == '__main__':
     main()

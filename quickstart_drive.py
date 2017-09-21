@@ -71,6 +71,4 @@ def copy(service,new_invoice_filename):
     print('new file id is ',newfile['id'])
     return newfile['id'] 
                 
-
-if __name__ == '__main__':
-    copy()
+ 
