@@ -8,19 +8,8 @@ from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
 
-try:
-    import argparse
-    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-except ImportError:
-    flags = None
-
-# If modifying these scopes, delete your previously saved credentials
-# at ~/.credentials/drive-python-quickstart.json
-SCOPES = 'https://www.googleapis.com/auth/drive'
-CLIENT_SECRET_FILE = 'D:\My Documents\GitHub\GsheetAPI\.client_secret_drive_write.json'
-APPLICATION_NAME = 'Drive API Python Quickstart'
  
-
+ 
 def copy_file(service, origin_file_id, copy_title):
     """Copy an existing file. Args:
     service: Drive API service instance.
@@ -39,11 +28,9 @@ def copy_file(service, origin_file_id, copy_title):
         print ('An error occurred: %s' % error)
     return None
 
-#get last created spreadsheet's ID
-def get_last_spreadsheetId():
-    credentials = get_credentials()
-    http = credentials.authorize(httplib2.Http())
-    service = discovery.build('drive', 'v3', http=http)
+#get last created spreadsheet's invoiceID
+def get_last_spreadsheetId(service):
+    
 
     results = service.files().list(
         pageSize=20,fields="nextPageToken, files(modifiedTime, name, id)").execute()
@@ -57,49 +44,17 @@ def get_last_spreadsheetId():
             if 'Invoice' in item['name']:
                 print('We found the invoices: ')
                 print('{0} {1} {2}'.format(item['name'], item['modifiedTime'],item['id']))
-
+        #we found the invoice, formatted according to time, most recent at the top, get it's ID
         return items[0]['id']
                 
 
+ 
 
-
-def get_credentials():
-    """Gets valid user credentials from storage.
-
-    If nothing has been stored, or if the stored credentials are invalid,
-    the OAuth2 flow is completed to obtain the new credentials.
-
-    Returns:
-        Credentials, the obtained credential.
-    """
-    home_dir = os.path.expanduser('~')
-    credential_dir = os.path.join(home_dir, '.credentials')
-    if not os.path.exists(credential_dir):
-        os.makedirs(credential_dir)
-    credential_path = os.path.join(credential_dir,
-                                   'drive-python-quickstart.json')
-
-    store = Storage(credential_path)
-    credentials = store.get()
-    if not credentials or credentials.invalid:
-        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
-        flow.user_agent = APPLICATION_NAME
-        if flags:
-            credentials = tools.run_flow(flow, store, flags)
-        else: # Needed only for compatibility with Python 2.6
-            credentials = tools.run(flow, store)
-        print('Storing credentials to ' + credential_path)
-    return credentials
-
-def main(new_invoice_filename):
-    """Shows basic usage of the Google Drive API.
-
-    Creates a Google Drive API service object and outputs the names and IDs
-    for up to 10 files.
-    """
-    credentials = get_credentials()
-    http = credentials.authorize(httplib2.Http())
-    service = discovery.build('drive', 'v3', http=http)
+def copy(service,new_invoice_filename):
+    '''
+    makes a copy of the new invoice
+    '''
+    print('We are at quickstart_drive')
 
     results = service.files().list(
         pageSize=20,fields="nextPageToken, files(id, name)").execute()
@@ -112,11 +67,10 @@ def main(new_invoice_filename):
             print('{0} ({1})'.format(item['name'], item['id']))
             if item['id'] == '1IaO33cnRu_vVVCjN4yPrGnlUP1t7L46Y7MISAAAIC3c':
                 print ('We found sample file now copying it')
-
                 newfile=copy_file(service, item['id'], new_invoice_filename)
     print('new file id is ',newfile['id'])
     return newfile['id'] 
                 
 
 if __name__ == '__main__':
-    main()
+    copy()
