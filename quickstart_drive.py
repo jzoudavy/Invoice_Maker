@@ -4,6 +4,7 @@ import os
 
 from apiclient import discovery
 from apiclient import errors
+from googleapiclient import http
 from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
@@ -71,4 +72,13 @@ def copy(service,new_invoice_filename):
     print('new file id is ',newfile['id'])
     return newfile['id'] 
                 
- 
+def download_sheets(service):
+    print('We are downloading the spreadsheet.')
+    file_id = '1ZdR3L3qP4Bkq8noWLJHSr_iBau0DNT4Kli4SxNc2YEo'
+    request = service.files().export_media(fileId=file_id,mimeType='application/pdf')
+    fh = io.BytesIO()
+    downloader = MediaIoBaseDownload(fh, request)
+    done = False
+    while done is False:
+        status, done = downloader.next_chunk()
+        print ("Download %d%%." % int(status.progress() * 100))    

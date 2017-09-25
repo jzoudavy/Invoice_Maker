@@ -34,6 +34,7 @@ t_now=t_now.isoformat('T')
 #print("end is :"+str(t_end))
 
 current_iso_week= datetime.datetime.now().isocalendar()[1]
+
 ### 
 
   
@@ -77,11 +78,14 @@ def main(service):
             #print (int(float(work_month)))
             #print (int(float(work_day)))
 
-            iso_week= datetime.date(work_year, work_month, work_day).isocalendar()[1]
-            #print (iso_week)
-            if iso_week == current_iso_week:
+            work_day_iso_week= datetime.date(work_year, work_month, work_day).isocalendar()[1]
+            print ('The ISO week of work is ',work_day_iso_week)
+            print ('Current ISO week is ',current_iso_week)
+            
+
+            if work_day_iso_week == current_iso_week:
                 
-                iso_week1=iso_week
+                iso_week1=work_day_iso_week
                 print("First week is ",iso_week1)
                 occurance_week1+=1
                 w=Week(work_year, iso_week1)
@@ -89,9 +93,10 @@ def main(service):
                 week_range1_Mon = w.monday().isoformat()
                 week_range1_Sun = w.sunday().isoformat()
                 print ("First week's range is ", week_range1_Mon, " to ",week_range1_Sun)
-            if iso_week == current_iso_week+1:
+
+            if work_day_iso_week == current_iso_week+1:
             
-                iso_week2=iso_week
+                iso_week2=work_day_iso_week
                 print("Second week is ",iso_week2)
                 occurance_week2+=1
                 w=Week(work_year, iso_week2)
@@ -102,8 +107,8 @@ def main(service):
 
             #we ignore anything but the next two weeks.
        
-    #print ("The first week is week # ",iso_week1,", it is from ",week_range1,". We worked ",occurance_week1," days.")
-    #print ("The second week is week # ",iso_week2,", it is from ",week_range2,". We worked ",occurance_week2," days.")
+    print ("The first week is week # ",iso_week1,", it is from ",week_range1,". We worked ",occurance_week1," days.")
+    print ("The second week is week # ",iso_week2,", it is from ",week_range2,". We worked ",occurance_week2," days.")
     week_range1=week_range1_Mon+" to "+week_range1_Sun
     week_range2=week_range2_Mon+" to "+week_range2_Sun
     return week_range1,week_range2,occurance_week1,occurance_week2

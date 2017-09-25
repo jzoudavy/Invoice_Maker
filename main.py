@@ -79,6 +79,10 @@ def main():
     #write to new spreadsheet, give it sheet, time info, new spreasheetID and the last invoice's ID
                                   
     quickstart_sheets.write_to_sheets(sheet_service,week_range1,week_range2,occurance_week1,occurance_week2,spreadsheetId,last_spreadsheetId)
+
+    #email new sheet
+    #quickstart_drive.download_sheets(drive_service)
+
  
 if __name__ == '__main__':
     main()
