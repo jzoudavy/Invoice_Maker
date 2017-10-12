@@ -107,8 +107,8 @@ def main(service):
 
             #we ignore anything but the next two weeks.
        
-    print ("The first week is week # ",iso_week1,", it is from ",week_range1,". We worked ",occurance_week1," days.")
-    print ("The second week is week # ",iso_week2,", it is from ",week_range2,". We worked ",occurance_week2," days.")
+    #print ("The first week is week # ",iso_week1,", it is from ",week_range1,". We worked ",occurance_week1," days.")
+    #print ("The second week is week # ",iso_week2,", it is from ",week_range2,". We worked ",occurance_week2," days.")
     week_range1=week_range1_Mon+" to "+week_range1_Sun
     week_range2=week_range2_Mon+" to "+week_range2_Sun
     return week_range1,week_range2,occurance_week1,occurance_week2

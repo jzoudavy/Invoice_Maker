@@ -50,4 +50,3 @@ def write_to_sheets(service,week_range1,week_range2,return_occurance_week1,retur
     body = result
     result = service.spreadsheets().values().update(spreadsheetId=spreadsheetId, range='Invoice!F12',valueInputOption=value_input_option, body=body).execute()
     
-     
