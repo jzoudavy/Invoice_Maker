@@ -15,6 +15,11 @@ import quickstart_drive
  
   
  
+def get_last_spreadsheet_end_dates(service, spreadsheetId):
+    result = service.spreadsheets().values().get(spreadsheetId=spreadsheetId, range='Invoice!B20').execute()
+    print('Our invoice end date is: ',result['values'])
+    return result
+
 
  
 

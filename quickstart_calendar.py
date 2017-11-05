@@ -36,19 +36,22 @@ t_now=t_now.isoformat('T')
 current_iso_week= datetime.datetime.now().isocalendar()[1]
 
 ### 
+def next_two_weeks(enddate): 
+    str_enddate = enddate['values'][0][0].split()[-1] # gets values, which is a double list, that stores our date as a string, so split and get the last element
+    print(str_enddate)
+    
+    year,month,day=str_enddate.split('-')
+    print(year,month,day)
 
+     
+
+    return True
   
 def main(service):
-    """Shows basic usage of the Google Calendar API.
-
-    Creates a Google Calendar API service object and outputs a list of the next
-    10 events on the user's calendar.
-    """
+   
     print('We are in the main of quickstart_caldendar.') 
 
-    
     print('Getting the upcoming 15 events')
-    #this function returns 15 events by default. 
     eventsResult = service.events().list(
         calendarId='primary', timeMin=t_now, timeMax=t_end, singleEvents=True,
         orderBy='startTime').execute()
@@ -73,10 +76,6 @@ def main(service):
             work_year=int(float(work_year))
             work_month=int(float(work_month))
             work_day=int(float(work_day))
-
-            #print (int(float(work_year)))
-            #print (int(float(work_month)))
-            #print (int(float(work_day)))
 
             work_day_iso_week= datetime.date(work_year, work_month, work_day).isocalendar()[1]
             print ('The ISO week of work is ',work_day_iso_week)
@@ -105,10 +104,6 @@ def main(service):
                 week_range2_Sun = w.sunday().isoformat()
                 print ("Second week's range is ", week_range2_Mon, " to ",week_range2_Sun)
 
-            #we ignore anything but the next two weeks.
-       
-    #print ("The first week is week # ",iso_week1,", it is from ",week_range1,". We worked ",occurance_week1," days.")
-    #print ("The second week is week # ",iso_week2,", it is from ",week_range2,". We worked ",occurance_week2," days.")
     week_range1=week_range1_Mon+" to "+week_range1_Sun
     week_range2=week_range2_Mon+" to "+week_range2_Sun
     return week_range1,week_range2,occurance_week1,occurance_week2
