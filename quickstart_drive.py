@@ -29,7 +29,7 @@ def copy_file(service, origin_file_id, copy_title):
         print ('An error occurred: %s' % error)
     return None
 
-#get last created spreadsheet's invoiceID
+#get last created spreadsheet's spreadsheet id
 def get_last_spreadsheetId(service):
     
 
@@ -45,7 +45,7 @@ def get_last_spreadsheetId(service):
             if 'Invoice' in item['name']:
                 print('We found the invoices: ')
                 print('{0} {1} {2}'.format(item['name'], item['modifiedTime'],item['id']))
-        #we found the invoice, formatted according to time, most recent at the top, get it's ID
+        #we found the spreadsheet, formatted according to time, most recent at the top, get it's ID
         return items[0]['id']
                 
 
