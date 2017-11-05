@@ -35,7 +35,10 @@ t_now=t_now.isoformat('T')
 
 current_iso_week= datetime.datetime.now().isocalendar()[1]
 
-def str_to_date_int(str_date):
+def str_to_date_int(enddate):
+
+    str_date = enddate['values'][0][0].split()[-1]
+    # gets values, which is a double list, that stores our date as a string, so split and get the last element
 
     year,month,day=str_date.split('-')
     print(year,month,day)
@@ -48,8 +51,8 @@ def str_to_date_int(str_date):
 
 ### 
 def next_two_weeks(enddate): 
-    str_enddate = enddate['values'][0][0].split()[-1] # gets values, which is a double list, that stores our date as a string, so split and get the last element
-    year, month, day = str_to_date_int(str_enddate)
+     
+    year, month, day = str_to_date_int(enddate)
     
     
 
@@ -122,7 +125,7 @@ def main(service,enddate):
             print("*"*50)
             occurance_week1+=1
     
-     print('Getting the upcoming events')
+    print('Getting the upcoming events')
     eventsResult = service.events().list(
         calendarId='primary', timeMin=t_w2_start, timeMax=t_w2_end, singleEvents=True,
         orderBy='startTime').execute()
