@@ -30,15 +30,15 @@ except ImportError:
 # If modifying these scopes, delete your previously saved credentials
 # at ~/.credentials/sheets.googleapis.com-python-quickstart.json
 sheet_SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
-sheet_CLIENT_SECRET_FILE = 'D:\My Documents\GitHub\Invoice_Maker\client_secret_sheet.json'
+sheet_CLIENT_SECRET_FILE = 'D:\My Documents\GitHub\Invoice_Maker\.client_secret_sheets.json'
 sheet_APPLICATION_NAME= 'Sheets'
 
 calendar_SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
-calendar_CLIENT_SECRET_FILE = 'D:\My Documents\GitHub\Invoice_Maker\client_secret_calendar.json'
+calendar_CLIENT_SECRET_FILE = 'D:\My Documents\GitHub\Invoice_Maker\.client_secret_calendar.json'
 calendar_APPLICATION_NAME= 'Calendar' 
 
 drive_SCOPES = 'https://www.googleapis.com/auth/drive'
-drive_CLIENT_SECRET_FILE = 'D:\My Documents\GitHub\Invoice_Maker\client_secret_drive.json'
+drive_CLIENT_SECRET_FILE = 'D:\My Documents\GitHub\Invoice_Maker\.client_secret_drive.json'
 drive_APPLICATION_NAME = 'Drive' 
 
 
@@ -81,7 +81,7 @@ def main():
     quickstart_sheets.write_to_sheets(sheet_service,week_range1,week_range2,occurance_week1,occurance_week2,spreadsheetId,last_spreadsheetId)
 
     #email new sheet
-    #quickstart_drive.download_sheets(drive_service)
+    quickstart_drive.download_sheets(drive_service,spreadsheetId,new_invoice_filename)
 
  
 if __name__ == '__main__':

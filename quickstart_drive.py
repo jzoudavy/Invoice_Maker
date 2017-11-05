@@ -8,7 +8,8 @@ from googleapiclient import http
 from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
-
+from apiclient.http import MediaIoBaseDownload
+import io
  
  
 def copy_file(service, origin_file_id, copy_title):
@@ -72,13 +73,15 @@ def copy(service,new_invoice_filename):
     print('new file id is ',newfile['id'])
     return newfile['id'] 
                 
-def download_sheets(service):
+def download_sheets(service,spreadsheetId,new_invoice_filename):
     print('We are downloading the spreadsheet.')
-    file_id = '1ZdR3L3qP4Bkq8noWLJHSr_iBau0DNT4Kli4SxNc2YEo'
-    request = service.files().export_media(fileId=file_id,mimeType='application/pdf')
-    fh = io.BytesIO()
+    
+    request = service.files().export_media(fileId=spreadsheetId,mimeType='application/pdf')
+    fh = io.FileIO(new_invoice_filename+'.pdf,'wb')
     downloader = MediaIoBaseDownload(fh, request)
     done = False
     while done is False:
         status, done = downloader.next_chunk()
         print ("Download %d%%." % int(status.progress() * 100))    
+
+
