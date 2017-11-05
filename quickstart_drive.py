@@ -77,7 +77,7 @@ def download_sheets(service,spreadsheetId,new_invoice_filename):
     print('We are downloading the spreadsheet.')
     
     request = service.files().export_media(fileId=spreadsheetId,mimeType='application/pdf')
-    fh = io.FileIO(new_invoice_filename+'.pdf,'wb')
+    fh = io.FileIO(new_invoice_filename+'.pdf','wb')
     downloader = MediaIoBaseDownload(fh, request)
     done = False
     while done is False:

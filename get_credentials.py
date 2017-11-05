@@ -37,6 +37,8 @@ def get_credentials(SCOPES, CLIENT_SECRET_FILE, APPLICATION_NAME):
         credential_path = os.path.join(credential_dir,'sheets.googleapis.com-python-quickstart.json')
     elif APPLICATION_NAME is 'Drive':
         credential_path = os.path.join(credential_dir,'drive-python-quickstart.json')
+    elif APPLICATION_NAME is 'Mail':
+        credential_path = os.path.join(credential_dir,'gmail-python-quickstart.json')
 
     store = Storage(credential_path)
     credentials = store.get()

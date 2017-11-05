@@ -15,9 +15,10 @@ import calendar
 import quickstart_calendar
 import quickstart_drive
 import quickstart_sheets
+import quickstart_mail
 import get_credentials
- 
 
+ 
 try:
     import argparse
     flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
@@ -41,6 +42,9 @@ drive_SCOPES = 'https://www.googleapis.com/auth/drive'
 drive_CLIENT_SECRET_FILE = 'D:\My Documents\GitHub\Invoice_Maker\.client_secret_drive.json'
 drive_APPLICATION_NAME = 'Drive' 
 
+mail_SCOPES = 'https://www.googleapis.com/auth/gmail.compose'
+mail_CLIENT_SECRET_FILE = 'D:\My Documents\GitHub\Invoice_Maker\.client_secret_mail.json'
+mail_APPLICATION_NAME = 'Mail' 
 
 
 def get_all_credentials():
@@ -61,11 +65,16 @@ def get_all_credentials():
     drive_service = discovery.build('drive', 'v3', http=drive_http) 
 
 
-    return calendar_service,sheet_service,drive_service
+    mail_credentials = get_credentials.get_credentials(mail_SCOPES,mail_CLIENT_SECRET_FILE,mail_APPLICATION_NAME)
+    mail_http = mail_credentials.authorize(httplib2.Http())
+    mail_service = discovery.build('gmail', 'v1', http=mail_http)
+
+
+    return calendar_service,sheet_service,drive_service,mail_service
 
 def main():
     
-    calendar_service,sheet_service,drive_service=get_all_credentials()
+    calendar_service,sheet_service,drive_service,mail_service=get_all_credentials()
 
      
     last_spreadsheetId=quickstart_drive.get_last_spreadsheetId(drive_service)
@@ -79,9 +88,9 @@ def main():
     spreadsheetId=quickstart_drive.copy(drive_service,new_invoice_filename)
     
     quickstart_sheets.write_to_sheets(sheet_service,week_range1,week_range2,occurance_week1,occurance_week2,spreadsheetId,last_spreadsheetId)
-
-    #email new sheet
     quickstart_drive.download_sheets(drive_service,spreadsheetId,new_invoice_filename)
+    #email new sheet
+    quickstart_mail.main(mail_service,drive_service,spreadsheetId,new_invoice_filename)
 
  
 if __name__ == '__main__':
