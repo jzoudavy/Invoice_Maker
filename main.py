@@ -82,7 +82,8 @@ def main():
     #last_spreadsheetId=quickstart_drive.get_last_spreadsheetId(drive_service)
     #write to new spreadsheet, give it sheet, time info, new spreasheetID and the last invoice's ID
     last_spreadsheet_end_dates=quickstart_sheets.get_last_spreadsheet_end_dates(sheet_service,spreadsheetId)                              
-    quickstart_calendar.next_two_weeks(last_spreadsheet_end_dates)
+    week_range1,week_range2=quickstart_calendar.next_two_weeks(last_spreadsheet_end_dates)
+    occurance_week1,occurance_week2=quickstart_calendar.main(calendar_service,last_spreadsheet_end_dates)
     #quickstart_sheets.write_to_sheets(sheet_service,week_range1,week_range2,occurance_week1,occurance_week2,spreadsheetId,last_spreadsheetId)
 
     #email new sheet
